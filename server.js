@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
     database: 'business_db'
 });
 
-
+                                //SHOWING TABLES
 const showDepartment = () => {
     connection.query(
         'SELECT * FROM department',
@@ -52,17 +52,82 @@ const showEmployees = () => {
         }
       );
 };
-
+                                    //ADDING 
 const addDepartment = () => {
-
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the department?',
+            name: 'department',
+        }
+    ]) .then ((answers) => {
+        connection.query(
+            `INSERT INTO department (department_name)
+            VALUES ( '${answers.department}')`
+        )
+        console.log(`Successfully added ${answers.department} to database`)
+    })
 };
 
 const addRole = () => {
-
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the role?',
+            name: 'role',
+        },
+        {
+            type: 'input',
+            message: 'What is the salary of the role?',
+            name: 'salary',
+        },
+        {
+            type: 'list',
+            message: 'Which department does the role belong to?',
+            name: 'department',
+            choices: [//don't know what to put here]
+        },
+    ]) .then ((answers) => {
+        connection.query(
+            `INSERT INTO department (role_title, role_salary, department_id)
+            VALUES ( '${answers.role}', '${answers.salary}', '${answers.department}')`
+        )
+        console.log(`Successfully added ${answers.role} to database`)
+    })
 };
 
 const addEmployee = () => {
-
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the employees first name?',
+            name: 'fname',
+        },
+        {
+            type: 'input',
+            message: 'What is the employees last name?',
+            name: 'lname',
+        },
+        {
+            type: 'list',
+            message: 'What is the employees role?',
+            name: 'role',
+            choices: []
+        },
+        {
+            type: 'list',
+            message: 'Who is the employees manager?',
+            name: 'manager',
+            choices: []
+        },
+    ]) .then((answers) => {
+        connection.query(
+            `INSERT INTO department (first_name, last_name, role_id, manager_id)
+            VALUES ( '${answers.fname}', '${answers.lname}', '${answers.role}', '${answers.manager}'
+            )`
+        )
+        console.log(`Successfully added ${answers.fname} ${answers.lname} to database`)
+    })
 };
 
 const updateEmployee = () => {
@@ -79,7 +144,7 @@ const promptUser = () => {
             choices:['view all departments', 'view all roles', 'view all employees', 'add department', 'add role', 'add employee', 'update employee role']
         }
     ]) 
-    .then ((reply) => {
+    .then ((reply) => { //conditions for al the options
         if('view all departments' === reply.options){
             showDepartment()
         } else if ('view all roles' === reply.options){
