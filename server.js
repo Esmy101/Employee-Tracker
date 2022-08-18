@@ -28,26 +28,23 @@ const showDepartment = () => {
 
 const showRoles = () => {
     connection.query(
-        'SELECT * FROM department',
+        `select roles.id, role_title, role_salary, department_name  from roles, department
+        where roles.department_id = department.id`,
         function(err, results, fields) {
-            let departments = results 
+            const table = cTable.getTable(results)
                 
-            connection.query(
-                'SELECT * FROM roles',
-                function(err, results, fields) {
-                    const table = cTable.getTable(results)
-                    console.log(departments)
-                  console.log(table); // shows table
-                }
-              );
+          console.log(table); // shows table
         }
       );
-
 };
 
 const showEmployees = () => {
     connection.query(
-        'SELECT * FROM employee',
+        `select e.id, e.first_name, e.last_name, r.role_title, d.department_name, r.role_salary,  m.first_name as manger_name 
+        from employee as e 
+        left join employee as m on e.manager_id = m.id 
+        left join roles as r on r.id = e.role_id 
+        left join department as d on r.department_id = d.id`,
         function(err, results, fields) {
             const table = cTable.getTable(results)
                 
