@@ -6,11 +6,14 @@ A database that keeps track of all employees and keeps all there information org
 
 _Information is categorized by department, role & employee_
 
-![image]()
+![image](./images/Screenshot%202022-08-18%20213739.png)
+![image](./images/Screenshot%202022-08-18%20213835.png)
+![image](./images/Screenshot%202022-08-18%20213819.png)
+
 
 _You can add a new department, role & employee_
 
-![image]()
+![image](./images/Screenshot%202022-08-18%20214352.png)
 
 _You can also update a employees role_
 

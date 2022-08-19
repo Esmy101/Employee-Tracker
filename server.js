@@ -13,7 +13,9 @@ const connection = mysql.createConnection({
     database: 'business_db'
 });
 
-                                //SHOWING TABLES
+
+
+//SHOWING TABLES
 const showDepartment = () => {
     connection.query(
         'SELECT * FROM department',
@@ -52,7 +54,10 @@ const showEmployees = () => {
         }
       );
 };
-                                    //ADDING 
+
+
+
+ //ADDING 
 const addDepartment = () => {
     inquirer.prompt([
         {
@@ -60,7 +65,9 @@ const addDepartment = () => {
             message: 'What is the name of the department?',
             name: 'department',
         }
-    ]) .then ((answers) => {
+    ]) 
+    
+    .then ((answers) => {
         connection.query(
             `INSERT INTO department (department_name)
             VALUES ( '${answers.department}')`
@@ -85,9 +92,11 @@ const addRole = () => {
             type: 'list',
             message: 'Which department does the role belong to?',
             name: 'department',
-            choices: [//don't know what to put here]
+            choices: []
         },
-    ]) .then ((answers) => {
+    ]) 
+    
+    .then ((answers) => {
         connection.query(
             `INSERT INTO department (role_title, role_salary, department_id)
             VALUES ( '${answers.role}', '${answers.salary}', '${answers.department}')`
@@ -120,7 +129,9 @@ const addEmployee = () => {
             name: 'manager',
             choices: []
         },
-    ]) .then((answers) => {
+    ]) 
+
+    .then((answers) => {
         connection.query(
             `INSERT INTO department (first_name, last_name, role_id, manager_id)
             VALUES ( '${answers.fname}', '${answers.lname}', '${answers.role}', '${answers.manager}'
@@ -130,11 +141,32 @@ const addEmployee = () => {
     })
 };
 
-const updateEmployee = () => {
 
+
+   //UPDATE
+const updateEmployee = () => {
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'Which employees role do you want to update?',
+            name: 'employee',
+            choices: []
+        },
+        {
+            type: 'list',
+            message: 'Which role do you want to assign the selected employee?',
+            name: 'manager',
+            choices: []
+        },
+    ])
+    .then((answers) =>{
+
+        console.log(`Successfully updated employee's role`)
+    })
 };
 
 
+//Main
 const promptUser = () => {
     return inquirer.prompt([
         { 
